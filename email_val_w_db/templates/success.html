@@ -25,6 +25,7 @@
             <tr>
               <td>{{ entry.email }}</td>
               <td>{{ entry.date }}</td>
+              <td><a href="/delete/{{ entry.id }}"><button>Delete</button></a></td>
             </tr>
           {% endfor %}
         {% endif %}

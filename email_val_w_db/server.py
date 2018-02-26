@@ -10,9 +10,18 @@ def index():
 
 @app.route('/success')
 def success():
-    query = "select email_addresses.email, date_format(entry.created_at, '%m/%d/%Y %h:%i') as date from email_addresses join entry on email_addresses.id = entry.email_addresses_id"
+    query = "select email_addresses.email, date_format(entry.created_at, '%m/%d/%Y %h:%i') as date, entry.id from email_addresses join entry on email_addresses.id = entry.email_addresses_id"
     data = mysql.query_db(query)
     return render_template('success.html',data=data)
+
+@app.route('/delete/<id>')
+def delete(id):
+    query = "delete from entry where id = :id"
+    data = {
+        "id": id
+    }
+    mysql.query_db(query,data)
+    return redirect('/success')
 
 @app.route('/check_email',methods=["POST"])
 def check_email():
