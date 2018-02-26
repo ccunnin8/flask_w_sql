@@ -12,13 +12,23 @@
         {% endfor %}
       {% endif %}
     {% endwith %}
-    <thead>
-      <tr>
-        <td>Email Addressess Entered: </td>
-        <td>Time</td>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
+    <table>
+      <thead>
+        <tr>
+          <td>Email Addressess Entered: </td>
+          <td>Time</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% if data %}
+          {% for entry in data %}
+            <tr>
+              <td>{{ entry.email }}</td>
+              <td>{{ entry.date }}</td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
   </body>
 </html>

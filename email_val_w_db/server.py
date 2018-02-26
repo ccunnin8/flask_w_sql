@@ -10,7 +10,9 @@ def index():
 
 @app.route('/success')
 def success():
-    return render_template('success.html')
+    query = "select email_addresses.email, date_format(entry.created_at, '%m/%d/%Y %h:%i') as date from email_addresses join entry on email_addresses.id = entry.email_addresses_id"
+    data = mysql.query_db(query)
+    return render_template('success.html',data=data)
 
 @app.route('/check_email',methods=["POST"])
 def check_email():
