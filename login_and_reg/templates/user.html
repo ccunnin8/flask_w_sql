@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Login</title>
+    <link href="{{ url_for('static',filename='style.css') }}" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Welcome back {{ session["current_user"]}}</h1>
+    <a href="/logout"><button>Logout</button></a>
+  </body>
+</html>
