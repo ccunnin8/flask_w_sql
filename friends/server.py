@@ -35,7 +35,7 @@ def update(friend_id):
 def delete(friend_id):
     query = "DELETE FROM friends where id = :id"
     data = {"id": friend_id }
-    mysql.query_db(query,db)
+    mysql.query_db(query,data)
     return redirect('/')
 
 @app.route('/friends/<friend_id>')
@@ -43,7 +43,7 @@ def show(friend_id):
     query = "SELECT * FROM friends where id = :specific_id"
     data = {'specific_id': friend_id }
     friends = mysql.query_db(query,data)
-    return render_template('index.html',one_friend=friends[0])
+    return render_template('index.html',friends=friends)
 
 
 app.run(debug=True)

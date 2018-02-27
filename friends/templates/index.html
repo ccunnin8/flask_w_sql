@@ -3,16 +3,26 @@
   <title>Friends</title>
 </head>
 <body>
-  {{ friends }}
   <h1>These are all my friends!</h1>
   {% for friend in friends %}
   <p>First Name:{{ friend.first_name }}</p>
   <p>Last Name: {{ friend.last_name }}</p>
   <p>Occupation: {{ friend.occupation }}</p>
+  <a href="/friends/{{ friend.id }}"><button>view friend</button></a>
+  <form action="/remove_friend/{{ friend.id}}" method="post">
+    <input type="submit" value="Remove Friend">
+  </form>
   <hr>
   {% endfor %}
+  {% if friends | length == 1 %}
+  <h2>Update Friend</h2>
+  {% with friend = friends[0] %}
+  <form action='/update_friend/{{ friend.id }}' method='POST'>
+  {% endwith %}
+  {% else %}
   <h2>Add a Friend</h2>
   <form action='/friends' method='POST'>
+  {% endif %}
     <label for="first_name">First Name:<input type="text" name="first_name" id="first_name"></label>
     <label for="last_name">Last Name:<input type="text" name="last_name" id="last_name"></label>
     <label for="occupation">Occupation:<input type="text" name="occupation" id="occupation"></label>
