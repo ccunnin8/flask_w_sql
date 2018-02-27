@@ -42,11 +42,41 @@ def login():
 
 @app.route('/post_message',methods=["POST"])
 def post_message():
-    pass
+    if session["logged_in"]:
+        name = session["current_user_name"] + " " + session["current_user_last_name"]
+        user_id = session["current_user_id"]
+        message = request.form["message"]
+        if len(message) == 0:
+            flash("you must enter a message!")
+            return redirect('/wall')
+        else:
+            query = """INSERT into messages (message, user_id, created_at, updated_at ) values (:message, :user_id, NOW(), NOW())"""
+            data = {
+                "message": message,
+                "user_id": user_id
+            }
+            mysql.query_db(query,data)
+            return redirect('/wall')
+    else:
+        return redirect('/')
 
-@app.route('/post_comment',methods=["POST"])
-def post_comment():
-    pass
+@app.route('/post_comment/<message_id>',methods=["POST"])
+def post_comment(message_id):
+    comment = request.form["comment"]
+    user_id = session["current_user_id"]
+    if len(comment) == 0:
+        flash("You must enter a comment")
+        return redirect('/wall')
+    else:
+        query = """INSERT into comments (comment, created_at, updated_at, user_id, message_id)
+        values (:comment, NOW(), NOW(), :user_id, :message_id)"""
+        data = {
+            "comment": comment,
+            "user_id": user_id,
+            "message_id": message_id
+        }
+        mysql.query_db(query,data)
+        return redirect('/wall')
 
 @app.route('/logout',methods=["POST","GET"])
 def logout():
@@ -97,10 +127,11 @@ def wall():
     query = """SELECT concat(users.first_name, ' ', users.last_name) as op,
 	messages.id,
     messages.message,
-    date_Format(messages.created_at,"%D %M %Y") as date
+    date_Format(messages.created_at,"%D %M %Y %h:%i") as date
     from users
     join messages
     on users.id = messages.user_id
+    order by date asc
     """
     #returns list of all messages
     messages = mysql.query_db(query)
@@ -108,7 +139,7 @@ def wall():
     for message in messages:
         query = """SELECT comments.comment,
         concat(users.first_name, ' ', users.last_name) as commenter,
-        date_format(comments.created_at,"%D %M %Y") as date,
+        date_format(comments.created_at,"%D %M %Y %h:%i") as date,
         messages.id as message_id,
         comments.id as comment_id
         from messages
@@ -123,7 +154,6 @@ def wall():
         }
         posts = mysql.query_db(query,data)
         message["comments"] = posts
-    print messages 
     return render_template("wall.html", messages=messages)
 
 #HELPER FUNCTIONS

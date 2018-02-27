@@ -40,3 +40,10 @@ nav ul li:first-child {
 nav ul li:nth-child(2) {
   margin-right: 10px;
 }
+textarea {
+  width: 400px;
+  height: 100px;
+}
+.message textarea {
+  height: 50px;
+}

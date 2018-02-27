@@ -15,10 +15,17 @@
       <li><a href="{{ url_for('logout') }}">log off</a></li>
     </ul>
   </nav>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
     <div class="container">
       <form action="/post_message" method="post">
         <h3>Post a message</h3>
-        <textarea name="message"></textarea>
+        <textarea name="message"></textarea><br>
         <input type="submit" value="Post a message">
       </form>
     {% if messages %}
@@ -26,15 +33,19 @@
         <div class="message">
           <h3>{{ message.op}} * {{ message.date}}</h3>
           <p>{{ message.message }}</p>
+          {% if message.comments %}
           <h3>Comments</h3>
           <ul>
-            {% if message.comments %}
               {% for comment in message.comments %}
               <h3>{{ comment.commenter }} * {{ comment.date }}</h3>
               <p>{{ comment.comment }}</p>
               {% endfor %}
             {% endif %}
           </ul>
+          <form action="/post_comment/{{ message.id }}" method="post">
+            <textarea name="comment"></textarea>
+            <input type="submit" value="Post Comment">
+          </form>
         </div>
       {% endfor %}
     {% endif %}
