@@ -1,0 +1,42 @@
+html {
+  height: 100%;
+}
+html, body {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+form label {
+  display: inline-block;
+  margin-bottom: 10px;
+  min-width: 120px;
+  text-align: left;
+}
+.login, .register {
+  margin: 0 auto;
+  padding: 20px;
+  width: 400px;
+  text-align: center;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+nav {
+  height: 60px;
+  border-bottom: 1px solid black;
+}
+nav ul {
+  list-style: none;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul li:first-child {
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 80%;
+}
+nav ul li:nth-child(2) {
+  margin-right: 10px;
+}

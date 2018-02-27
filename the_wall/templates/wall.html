@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}" type="text/css" />
+    <title>Coding Dojo wall</title>
+    <meta charset="utf-8">
+    <meta content="This is a like twitter" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>CodingDojo Wall</li>
+      <li>Welcome {{ session["current_user_name"]}}</li>
+      <li><a href="{{ url_for('logout') }}">log off</a></li>
+    </ul>
+  </nav>
+    <div class="container">
+      <form action="/post_message" method="post">
+        <h3>Post a message</h3>
+        <textarea name="message"></textarea>
+        <input type="submit" value="Post a message">
+      </form>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="message">
+          <h3>{{ message.op}} * {{ message.date}}</h3>
+          <p>{{ message.message }}</p>
+          <h3>Comments</h3>
+          <ul>
+            {% if message.comments %}
+              {% for comment in message.comments %}
+              <h3>{{ comment.commenter }} * {{ comment.date }}</h3>
+              <p>{{ comment.comment }}</p>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% endif %}
+    </div>
+</body>
+</html>
