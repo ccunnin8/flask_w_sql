@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Users Index</title>
+    <meta charset="utf-8">
+    <meta name="description" content="CRUD app">
+  </head>
+  <body>
+    <h1>Users</h1>
+    <table>
+      <thead>
+        <tr>
+          <td>id</td>
+          <td>Full Name</td>
+          <td>Email</td>
+          <td>Created At</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.created_at }}</td>
+          <td><a href="/users/{{user.id}}">Show</a>
+              <a href="/users/{{user.id}}/edit">Edit</a>
+              <a href="/users/{{user.id}}/destroy">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{{ url_for('new')}}">Add a new user</a>
+  </body>
+</html>

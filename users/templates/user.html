@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Users Index</title>
+    <meta charset="utf-8">
+    <meta name="description" content="CRUD app">
+  </head>
+  <body>
+    <h1>User {{ id }}</h1>
+    <h5>Full Name: {{ name }}</h5>
+    <h5>Email: {{ email }}</h5>
+    <h5>Created at: {{ date }}</h5>
+    <br>
+    <a href="/users/{{ id }}/edit">Edit</a> | <a href="/users/{{ id }}/destroy">Destroy</a>
+  </body>
+</html>

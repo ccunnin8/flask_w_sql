@@ -1,0 +1,8 @@
+{% extends "_form.html" %}
+{% block title %} Edit Users {{ id }} {% endblock %}
+{% block h1 %}Edit User {{ id }} {% endblock %}
+{% block route %} /users/{{ id }} {%endblock %}
+{% block button %}Update{% endblock %}
+{% block nav %}
+<a href="/users/{{ id }}">Show</a> | <a href="/users">Go Back</a>
+{% endblock %}
